@@ -530,4 +530,4 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 // $config['proxy_ips'] = '';
-// $config['gemini_key'] = "AIzaSyCQF_dnMShhDwC_veX-pwtA9aWVVJiY6PM";
+// $config['gemini_key'] = "AIzaSyBBPl6R3bKnUxNKf88v2k0DmCkrmOF-ujs";

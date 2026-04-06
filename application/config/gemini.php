@@ -9,5 +9,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Do not keep API keys directly inside controllers.
 */
 
-$config['api_key'] = 'AIzaSyCQF_dnMShhDwC_veX-pwtA9aWVVJiY6PM';
+
+$config['api_key'] = 'AIzaSyBBPl6R3bKnUxNKf88v2k0DmCkrmOF-ujs';
 $config['model']   = 'gemini-2.5-flash-lite';
