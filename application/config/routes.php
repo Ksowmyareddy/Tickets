@@ -58,14 +58,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 // $route['404_override'] = '';
 // $route['translate_uri_dashes'] = FALSE;
 
-// $route['ai-search'] = 'ai_search/search';
-// $route['default_controller'] = 'Search';
-// $route['default_controller'] = 'Search';
-// $route['ai-search'] = 'Ai_search/search';
-// $route['default_controller'] = 'NotificationDashboard';
-// $route['dashboard'] = 'NotificationDashboard';
-// $route['404_override'] = '';
-// $route['translate_uri_dashes'] = FALSE;
+$route['ai-search'] = 'ai_search/search';
+$route['default_controller'] = 'Search';
+$route['default_controller'] = 'Search';
+$route['ai-search'] = 'Ai_search/search';
+$route['default_controller'] = 'NotificationDashboard';
+$route['dashboard'] = 'NotificationDashboard';
+$route['404_override'] = '';
+$route['translate_uri_dashes'] = FALSE;
 
 
 
@@ -77,15 +77,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 // $route['translate_uri_dashes'] = FALSE;
 
 
-$route['default_controller'] = 'tickets';
-$route['404_override'] = '';
-$route['translate_uri_dashes'] = FALSE;
+// $route['default_controller'] = 'tickets';
+// $route['404_override'] = '';
+// $route['translate_uri_dashes'] = FALSE;
 
-$route['tickets'] = 'tickets/index';
-$route['tickets/create'] = 'tickets/create';
-$route['tickets/store'] = 'tickets/store';
-$route['tickets/update_ticket'] = 'tickets/update_ticket';
-$route['tickets/update_inline'] = 'tickets/update_inline';
-$route['tickets/delete_ticket/(:num)'] = 'tickets/delete_ticket/$1';
-$route['tickets/export'] = 'tickets/export';
-$route['tickets/improve_description'] = 'tickets/improve_description';
+// $route['tickets'] = 'tickets/index';
+// $route['tickets/create'] = 'tickets/create';
+// $route['tickets/store'] = 'tickets/store';
+// $route['tickets/update_ticket'] = 'tickets/update_ticket';
+// $route['tickets/update_inline'] = 'tickets/update_inline';
+// $route['tickets/delete_ticket/(:num)'] = 'tickets/delete_ticket/$1';
+// $route['tickets/export'] = 'tickets/export';
+// $route['tickets/improve_description'] = 'tickets/improve_description';
