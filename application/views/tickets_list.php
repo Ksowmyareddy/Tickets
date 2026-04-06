@@ -9,7 +9,7 @@
     <style>
         *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
         body{background:#eef5ff;color:#133b6b;padding:18px 14px;}
-        .page-wrap{max-width:1600px;margin:0 auto;}
+        .page-wrap{max-width:1750px;margin:0 auto;}
 
         .topbar{
             background:#ffffff;
@@ -34,46 +34,31 @@
 
         .page-title{font-size:18px;font-weight:700;color:#0d6efd;}
 
+        .brand-logo{
+            width:120px;
+            height:50px;
+            object-fit:contain;
+            display:block;
+        }
 
+        .search-form{
+            display:flex;
+            align-items:center;
+            gap:4px;
+            background:#f8fbff;
+            border:1px solid #cfe2ff;
+            border-radius:6px;
+            padding:3px 6px;
+        }
 
-.brand-logo{
-    width:105px;
-    height:42px;
-    object-fit:contain;
-    display:block;
-}
-
-       .search-form{
-    display:flex;
-    align-items:center;
-    gap:3px;
-    background:#f8fbff;
-    border:1px solid #cfe2ff;
-    border-radius:6px;
-    padding:3px 6px;   /* reduced */
-}
-
-.search-input{
-    border:none;
-    outline:none;
-    background:transparent;
-    color:#133b6b;
-    min-width:100px;   /* reduced width */
-    font-size:12px;    /* smaller text */
-}
-
-.search-btn{
-    background:#0d6efd;
-    padding:5px 10px;  /* smaller button */
-    font-size:11px;    /* smaller text */
-}
-
-
-.clear-btn{
-    width:22px;        /* smaller */
-    height:22px;
-    font-size:10px;
-}
+        .search-input{
+            border:none;
+            outline:none;
+            background:transparent;
+            color:#133b6b;
+            min-width:180px;
+            font-size:12px;
+        }
 
         .btn{
             border:none;
@@ -90,15 +75,20 @@
             transition:0.2s ease;
         }
 
-        .search-btn{background:#0d6efd;}
+        .search-btn{
+            background:#0d6efd;
+            padding:5px 10px;
+            font-size:11px;
+        }
+
         .search-btn:hover{background:#0b5ed7;}
 
         .clear-btn{
             display:flex;
             align-items:center;
             justify-content:center;
-            width:20px;
-            height:28px;
+            width:22px;
+            height:22px;
             border-radius:50%;
             background:#e7f0ff;
             color:#0d6efd;
@@ -151,8 +141,12 @@
             box-shadow:0 8px 24px rgba(13,110,253,0.08);
         }
 
-        .table-wrap{overflow-x:auto;}
-        table{width:100%;min-width:1750px;border-collapse:collapse;}
+        .table-wrap{
+            overflow-x:auto;
+            overflow-y:hidden;
+        }
+
+        table{width:100%;min-width:2000px;border-collapse:collapse;}
         thead{background:#0d6efd;}
 
         th{
@@ -163,6 +157,7 @@
             padding:12px 10px;
             border-bottom:1px solid #5fa0ff;
             white-space:nowrap;
+            position:relative;
         }
 
         td{
@@ -177,6 +172,115 @@
 
         tbody tr:hover td{background:#f7fbff;}
         .no-data{text-align:center;color:#7c95b2;padding:18px 0;}
+
+        .th-flex{
+            display:flex;
+            align-items:center;
+            gap:6px;
+        }
+
+        .filter-btn{
+            background:rgba(255,255,255,0.18);
+            border:1px solid rgba(255,255,255,0.35);
+            color:#fff;
+            cursor:pointer;
+            font-size:11px;
+            width:22px;
+            height:22px;
+            border-radius:6px;
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            transition:0.2s ease;
+        }
+
+        .filter-btn:hover{
+            background:#ffffff;
+            color:#0d6efd;
+        }
+
+        .filter-btn.active{
+            background:#ffffff;
+            color:#0d6efd;
+        }
+
+        .filter-menu{
+            position:fixed;
+            min-width:190px;
+            max-width:230px;
+            background:#ffffff;
+            border:1px solid #d6e7ff;
+            border-radius:12px;
+            box-shadow:0 14px 30px rgba(0,0,0,0.16);
+            z-index:20000;
+            display:none;
+            overflow:hidden;
+            padding:6px 0;
+        }
+
+        .filter-menu.show{
+            display:block;
+        }
+
+        .filter-menu a{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:10px;
+            padding:10px 14px;
+            color:#133b6b;
+            text-decoration:none;
+            font-size:12px;
+            font-weight:600;
+            background:#fff;
+            transition:0.2s ease;
+        }
+
+        .filter-menu a:hover{
+            background:#f3f8ff;
+            color:#0d6efd;
+        }
+
+        .filter-menu a.selected{
+            background:#eef5ff;
+            color:#0d6efd;
+        }
+
+        .filter-menu a .check-icon{
+            font-size:12px;
+            color:#0d6efd;
+            visibility:hidden;
+        }
+
+        .filter-menu a.selected .check-icon{
+            visibility:visible;
+        }
+
+        .filter-active-note{
+            margin-bottom:10px;
+            display:flex;
+            gap:8px;
+            flex-wrap:wrap;
+        }
+
+        .filter-chip{
+            display:inline-flex;
+            align-items:center;
+            gap:6px;
+            background:#eef5ff;
+            color:#0d6efd;
+            border:1px solid #cfe2ff;
+            border-radius:999px;
+            padding:5px 10px;
+            font-size:12px;
+            font-weight:700;
+        }
+
+        .filter-chip a{
+            color:#dc3545;
+            text-decoration:none;
+            font-weight:700;
+        }
 
         .attachment-summary-btn{
             display:inline-flex;
@@ -247,36 +351,50 @@
             transform:translateX(2px);
         }
 
-        .edit-link i{
-            font-size:14px;
+        .edit-link i{font-size:14px;}
+
+        .pagination-wrap{
+            display:flex;
+            justify-content:flex-end;
+            gap:8px;
+            margin-top:25px;
+        }
+
+        .page-link-btn{
+            background:#fff;
+            color:#0d6efd;
+            border:1px solid #cfe2ff;
+            border-radius:8px;
+            padding:8px 14px;
+            text-decoration:none;
+            font-size:12px;
+            font-weight:700;
+        }
+
+        .page-link-btn:hover{
+            background:#eef5ff;
+        }
+
+        .page-link-btn.disabled{
+            opacity:0.5;
+            pointer-events:none;
         }
 
         .modal-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.55);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:9999;
-    padding:16px;
-}
-#ticketModal{
-    z-index:9999;
-}
+            position:fixed;
+            inset:0;
+            background:rgba(0,0,0,0.55);
+            display:none;
+            align-items:center;
+            justify-content:center;
+            z-index:9999;
+            padding:16px;
+        }
 
-#updateTicketModal{
-    z-index:10000;
-}
-
-#attachmentsGalleryModal{
-    z-index:10020;
-}
-
-#imagePreviewModal{
-    z-index:10050;
-}
-        
+        #ticketModal{z-index:9999;}
+        #updateTicketModal{z-index:10000;}
+        #attachmentsGalleryModal{z-index:10020;}
+        #imagePreviewModal{z-index:10050;}
 
         .modal-box{
             width:100%;
@@ -342,6 +460,7 @@
 
         .form-group input[type="text"],
         .form-group input[type="datetime-local"],
+        .form-group input[type="date"],
         .form-group textarea,
         .form-group select{
             width:100%;
@@ -518,19 +637,8 @@
             line-height:1;
         }
 
-        .remove-file-btn:hover{
-            background:#bb2d3b;
-        }
-
-        .existing-file-badge{
-            position:relative;
-        }
-
-        .empty-preview{
-            font-size:11px;
-            color:#7c95b2;
-            margin-top:8px;
-        }
+        .remove-file-btn:hover{background:#bb2d3b;}
+        .empty-preview{font-size:11px;color:#7c95b2;margin-top:8px;}
 
         @media (max-width: 768px){
             .topbar{flex-direction:column;align-items:flex-start;gap:10px;}
@@ -545,32 +653,52 @@
 </head>
 <body>
 
+<?php
+    $query_base = array(
+        'search' => $search,
+        'status_filter' => $status_filter,
+        'priority_filter' => $priority_filter,
+        'classification_filter' => $classification_filter
+    );
+
+    function build_filter_url($base_url_value, $params) {
+        return $base_url_value . '?' . http_build_query(array_filter($params, function($value){
+            return $value !== '';
+        }));
+    }
+?>
+
 <div class="inline-toast" id="inlineToast"></div>
 
 <div class="page-wrap">
 
     <?php if ($this->session->flashdata('success')) { ?>
-    <div class="flash-message flash-success auto-hide-message"><?= $this->session->flashdata('success'); ?></div>
+        <div class="flash-message flash-success auto-hide-message"><?= $this->session->flashdata('success'); ?></div>
     <?php } ?>
 
     <?php if ($this->session->flashdata('error')) { ?>
-    <div class="flash-message flash-error auto-hide-message"><?= $this->session->flashdata('error'); ?></div>
+        <div class="flash-message flash-error auto-hide-message"><?= $this->session->flashdata('error'); ?></div>
     <?php } ?>
 
     <div class="topbar">
         <div class="topbar-left">
-           <div class="brand">
-    <img src="<?= base_url('assets/images/autozilla.png'); ?>" alt="Autozilla Logo" class="brand-logo">
-   
-</div>
+            <div class="brand">
+                <img src="<?= base_url('assets/images/autozilla.png'); ?>" alt="Autozilla Logo" class="brand-logo">
+            </div>
+
             <form method="get" action="<?= base_url('tickets'); ?>" class="search-form">
                 <i class="bi bi-search" style="color:#0d6efd;"></i>
                 <input type="text" name="search" class="search-input"
                        placeholder="Search by Ticket ID, Contact Name, Account Name, Description"
-                       value="<?= isset($search) ? htmlspecialchars($search) : ''; ?>">
+                       value="<?= htmlspecialchars($search); ?>">
+
+                <input type="hidden" name="status_filter" value="<?= htmlspecialchars($status_filter); ?>">
+                <input type="hidden" name="priority_filter" value="<?= htmlspecialchars($priority_filter); ?>">
+                <input type="hidden" name="classification_filter" value="<?= htmlspecialchars($classification_filter); ?>">
+
                 <button type="submit" class="btn search-btn">Search</button>
 
-                <?php if (!empty($search)) { ?>
+                <?php if (!empty($search) || !empty($status_filter) || !empty($priority_filter) || !empty($classification_filter)) { ?>
                     <a href="<?= base_url('tickets'); ?>" class="clear-btn" title="Clear Search">
                         <i class="bi bi-x-lg"></i>
                     </a>
@@ -585,9 +713,28 @@
                 <i class="bi bi-plus-lg" style="margin-right:6px;"></i> Create
             </button>
 
-            <a href="<?= base_url('tickets/export') . (!empty($search) ? '?search=' . urlencode($search) : ''); ?>" class="btn excel-btn">Excel</a>
+            <a href="<?= base_url('tickets/export') . '?' . http_build_query(array_filter(array(
+                'search' => $search,
+                'status_filter' => $status_filter,
+                'priority_filter' => $priority_filter,
+                'classification_filter' => $classification_filter
+            ), function($v){ return $v !== ''; })); ?>" class="btn excel-btn">Excel</a>
         </div>
     </div>
+
+    <?php if (!empty($status_filter) || !empty($priority_filter) || !empty($classification_filter)) { ?>
+        <div class="filter-active-note">
+            <?php if (!empty($status_filter)) { ?>
+                <span class="filter-chip">Status: <?= htmlspecialchars($status_filter); ?> <a href="<?= build_filter_url(base_url('tickets'), array('search' => $search, 'priority_filter' => $priority_filter, 'classification_filter' => $classification_filter)); ?>">×</a></span>
+            <?php } ?>
+            <?php if (!empty($priority_filter)) { ?>
+                <span class="filter-chip">Priority: <?= htmlspecialchars($priority_filter); ?> <a href="<?= build_filter_url(base_url('tickets'), array('search' => $search, 'status_filter' => $status_filter, 'classification_filter' => $classification_filter)); ?>">×</a></span>
+            <?php } ?>
+            <?php if (!empty($classification_filter)) { ?>
+                <span class="filter-chip">Classification: <?= htmlspecialchars($classification_filter); ?> <a href="<?= build_filter_url(base_url('tickets'), array('search' => $search, 'status_filter' => $status_filter, 'priority_filter' => $priority_filter)); ?>">×</a></span>
+            <?php } ?>
+        </div>
+    <?php } ?>
 
     <div class="table-card">
         <div class="table-wrap">
@@ -598,12 +745,48 @@
                         <th>Contact Name</th>
                         <th>Account Name</th>
                         <th>Description</th>
-                        <th>Status</th>
+
+                        <th>
+                            <div class="th-flex">
+                                <span>Status</span>
+                                <button type="button"
+                                        class="filter-btn"
+                                        id="statusFilterBtn"
+                                        data-menu-id="statusFilterMenu">
+                                    <i class="bi bi-funnel-fill"></i>
+                                </button>
+                            </div>
+                        </th>
+
                         <th>Created At</th>
                         <th>Timeline</th>
-                        <th>Priority</th>
-                        <th>Classification</th>
+
+                        <th>
+                            <div class="th-flex">
+                                <span>Priority</span>
+                                <button type="button"
+                                        class="filter-btn"
+                                        id="priorityFilterBtn"
+                                        data-menu-id="priorityFilterMenu">
+                                    <i class="bi bi-funnel-fill"></i>
+                                </button>
+                            </div>
+                        </th>
+
+                        <th>
+                            <div class="th-flex">
+                                <span>Classification</span>
+                                <button type="button"
+                                        class="filter-btn"
+                                        id="classificationFilterBtn"
+                                        data-menu-id="classificationFilterMenu">
+                                    <i class="bi bi-funnel-fill"></i>
+                                </button>
+                            </div>
+                        </th>
+
                         <th>Assign To</th>
+                        <th>QA By</th>
                         <th>Attachments</th>
                         <th>Access</th>
                     </tr>
@@ -662,16 +845,17 @@
                                 </td>
 
                                 <td>
-                                    <input type="datetime-local"
+                                    <input type="date"
                                            name="timeline"
                                            class="timeline-input <?= $is_overdue ? 'timeline-overdue' : ''; ?>"
                                            data-id="<?= $ticket->id; ?>"
-                                           value="<?= !empty($ticket->timeline) ? date('Y-m-d\TH:i', strtotime($ticket->timeline)) : ''; ?>">
+                                           value="<?= !empty($ticket->timeline) ? date('Y-m-d', strtotime($ticket->timeline)) : ''; ?>">
                                 </td>
 
                                 <td><?= htmlspecialchars($ticket->priority); ?></td>
                                 <td><?= htmlspecialchars($ticket->classification); ?></td>
                                 <td><?= htmlspecialchars($ticket->assign_to); ?></td>
+                                <td><?= htmlspecialchars($ticket->qa_by); ?></td>
 
                                 <td>
                                     <?php if (!empty($attachments)) { ?>
@@ -696,7 +880,7 @@
                         <?php } ?>
                     <?php } else { ?>
                         <tr>
-                            <td colspan="12" class="no-data">No tickets found</td>
+                            <td colspan="13" class="no-data">No tickets found</td>
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -704,6 +888,85 @@
         </div>
     </div>
 
+    <?php if ($show_pagination) { ?>
+        <div class="pagination-wrap">
+            <?php if ($has_previous) { ?>
+                <a class="page-link-btn" href="<?= build_filter_url(base_url('tickets'), array(
+                    'search' => $search,
+                    'status_filter' => $status_filter,
+                    'priority_filter' => $priority_filter,
+                    'classification_filter' => $classification_filter,
+                    'page' => $current_page - 1
+                )); ?>">Previous</a>
+            <?php } ?>
+
+            <?php if ($has_next) { ?>
+                <a class="page-link-btn" href="<?= build_filter_url(base_url('tickets'), array(
+                    'search' => $search,
+                    'status_filter' => $status_filter,
+                    'priority_filter' => $priority_filter,
+                    'classification_filter' => $classification_filter,
+                    'page' => $current_page + 1
+                )); ?>">Next</a>
+            <?php } ?>
+        </div>
+    <?php } ?>
+
+</div>
+
+<!-- FILTER MENUS OUTSIDE TABLE -->
+<div class="filter-menu" id="statusFilterMenu">
+    <a href="<?= build_filter_url(base_url('tickets'), array('search' => $search, 'priority_filter' => $priority_filter, 'classification_filter' => $classification_filter)); ?>" class="<?= $status_filter === '' ? 'selected' : ''; ?>">
+        <span>All</span><i class="bi bi-check2 check-icon"></i>
+    </a>
+    <a href="<?= build_filter_url(base_url('tickets'), array('search' => $search, 'status_filter' => 'Open', 'priority_filter' => $priority_filter, 'classification_filter' => $classification_filter)); ?>" class="<?= $status_filter === 'Open' ? 'selected' : ''; ?>">
+        <span>Open</span><i class="bi bi-check2 check-icon"></i>
+    </a>
+    <a href="<?= build_filter_url(base_url('tickets'), array('search' => $search, 'status_filter' => 'On Hold', 'priority_filter' => $priority_filter, 'classification_filter' => $classification_filter)); ?>" class="<?= $status_filter === 'On Hold' ? 'selected' : ''; ?>">
+        <span>On Hold</span><i class="bi bi-check2 check-icon"></i>
+    </a>
+    <a href="<?= build_filter_url(base_url('tickets'), array('search' => $search, 'status_filter' => 'Escalated', 'priority_filter' => $priority_filter, 'classification_filter' => $classification_filter)); ?>" class="<?= $status_filter === 'Escalated' ? 'selected' : ''; ?>">
+        <span>Escalated</span><i class="bi bi-check2 check-icon"></i>
+    </a>
+    <a href="<?= build_filter_url(base_url('tickets'), array('search' => $search, 'status_filter' => 'Closed', 'priority_filter' => $priority_filter, 'classification_filter' => $classification_filter)); ?>" class="<?= $status_filter === 'Closed' ? 'selected' : ''; ?>">
+        <span>Closed</span><i class="bi bi-check2 check-icon"></i>
+    </a>
+</div>
+
+<div class="filter-menu" id="priorityFilterMenu">
+    <a href="<?= build_filter_url(base_url('tickets'), array('search' => $search, 'status_filter' => $status_filter, 'classification_filter' => $classification_filter)); ?>" class="<?= $priority_filter === '' ? 'selected' : ''; ?>">
+        <span>All</span><i class="bi bi-check2 check-icon"></i>
+    </a>
+    <a href="<?= build_filter_url(base_url('tickets'), array('search' => $search, 'status_filter' => $status_filter, 'priority_filter' => 'Critical', 'classification_filter' => $classification_filter)); ?>" class="<?= $priority_filter === 'Critical' ? 'selected' : ''; ?>">
+        <span>Critical</span><i class="bi bi-check2 check-icon"></i>
+    </a>
+    <a href="<?= build_filter_url(base_url('tickets'), array('search' => $search, 'status_filter' => $status_filter, 'priority_filter' => 'Low', 'classification_filter' => $classification_filter)); ?>" class="<?= $priority_filter === 'Low' ? 'selected' : ''; ?>">
+        <span>Low</span><i class="bi bi-check2 check-icon"></i>
+    </a>
+    <a href="<?= build_filter_url(base_url('tickets'), array('search' => $search, 'status_filter' => $status_filter, 'priority_filter' => 'Medium', 'classification_filter' => $classification_filter)); ?>" class="<?= $priority_filter === 'Medium' ? 'selected' : ''; ?>">
+        <span>Medium</span><i class="bi bi-check2 check-icon"></i>
+    </a>
+    <a href="<?= build_filter_url(base_url('tickets'), array('search' => $search, 'status_filter' => $status_filter, 'priority_filter' => 'High', 'classification_filter' => $classification_filter)); ?>" class="<?= $priority_filter === 'High' ? 'selected' : ''; ?>">
+        <span>High</span><i class="bi bi-check2 check-icon"></i>
+    </a>
+</div>
+
+<div class="filter-menu" id="classificationFilterMenu">
+    <a href="<?= build_filter_url(base_url('tickets'), array('search' => $search, 'status_filter' => $status_filter, 'priority_filter' => $priority_filter)); ?>" class="<?= $classification_filter === '' ? 'selected' : ''; ?>">
+        <span>All</span><i class="bi bi-check2 check-icon"></i>
+    </a>
+    <a href="<?= build_filter_url(base_url('tickets'), array('search' => $search, 'status_filter' => $status_filter, 'priority_filter' => $priority_filter, 'classification_filter' => 'Issue')); ?>" class="<?= $classification_filter === 'Issue' ? 'selected' : ''; ?>">
+        <span>Issue</span><i class="bi bi-check2 check-icon"></i>
+    </a>
+    <a href="<?= build_filter_url(base_url('tickets'), array('search' => $search, 'status_filter' => $status_filter, 'priority_filter' => $priority_filter, 'classification_filter' => 'Update')); ?>" class="<?= $classification_filter === 'Update' ? 'selected' : ''; ?>">
+        <span>Update</span><i class="bi bi-check2 check-icon"></i>
+    </a>
+    <a href="<?= build_filter_url(base_url('tickets'), array('search' => $search, 'status_filter' => $status_filter, 'priority_filter' => $priority_filter, 'classification_filter' => 'Feature')); ?>" class="<?= $classification_filter === 'Feature' ? 'selected' : ''; ?>">
+        <span>Feature</span><i class="bi bi-check2 check-icon"></i>
+    </a>
+    <a href="<?= build_filter_url(base_url('tickets'), array('search' => $search, 'status_filter' => $status_filter, 'priority_filter' => $priority_filter, 'classification_filter' => 'Enhancement')); ?>" class="<?= $classification_filter === 'Enhancement' ? 'selected' : ''; ?>">
+        <span>Enhancement</span><i class="bi bi-check2 check-icon"></i>
+    </a>
 </div>
 
 <!-- CREATE MODAL -->
@@ -751,6 +1014,11 @@
                         <label>Assign To <span>*</span></label>
                         <input type="text" name="assign_to" required>
                     </div>
+
+                    <div class="form-group">
+                        <label>QA By <span>*</span></label>
+                        <input type="text" name="qa_by" required>
+                    </div>
                 </div>
             </div>
 
@@ -760,7 +1028,7 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Timeline</label>
-                        <input type="datetime-local" name="timeline">
+                        <input type="date" name="timeline">
                     </div>
 
                     <div class="form-group">
@@ -848,6 +1116,11 @@
                         <label>Assign To <span>*</span></label>
                         <input type="text" name="assign_to" id="update_assign_to" required>
                     </div>
+
+                    <div class="form-group">
+                        <label>QA By <span>*</span></label>
+                        <input type="text" name="qa_by" id="update_qa_by" required>
+                    </div>
                 </div>
             </div>
 
@@ -857,7 +1130,7 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Timeline</label>
-                        <input type="datetime-local" name="timeline" id="update_timeline">
+                        <input type="date" name="timeline" id="update_timeline">
                     </div>
 
                     <div class="form-group">
@@ -943,6 +1216,105 @@ document.addEventListener('DOMContentLoaded', function () {
 
 const ticketsData = <?= json_encode($tickets); ?>;
 const baseUploadUrl = "<?= base_url('uploads/tickets/'); ?>";
+
+/* FILTER DROPDOWN FIX */
+let activeFilterMenu = null;
+let activeFilterButton = null;
+
+function closeAllFilterMenus() {
+    document.querySelectorAll('.filter-menu').forEach(function(menu) {
+        menu.classList.remove('show');
+    });
+
+    document.querySelectorAll('.filter-btn').forEach(function(btn) {
+        btn.classList.remove('active');
+    });
+
+    activeFilterMenu = null;
+    activeFilterButton = null;
+}
+
+function positionFilterMenu(button, menu) {
+    const rect = button.getBoundingClientRect();
+    const menuWidth = menu.offsetWidth || 190;
+    const menuHeight = menu.offsetHeight || 220;
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    let left = rect.left;
+    let top = rect.bottom + 8;
+
+    if (left + menuWidth > viewportWidth - 12) {
+        left = viewportWidth - menuWidth - 12;
+    }
+
+    if (left < 12) {
+        left = 12;
+    }
+
+    if (top + menuHeight > viewportHeight - 12) {
+        top = rect.top - menuHeight - 8;
+    }
+
+    if (top < 12) {
+        top = 12;
+    }
+
+    menu.style.left = left + 'px';
+    menu.style.top = top + 'px';
+}
+
+function openFilterMenu(button) {
+    const menuId = button.getAttribute('data-menu-id');
+    const menu = document.getElementById(menuId);
+    if (!menu) return;
+
+    if (activeFilterMenu && activeFilterMenu === menu) {
+        closeAllFilterMenus();
+        return;
+    }
+
+    closeAllFilterMenus();
+
+    menu.classList.add('show');
+    button.classList.add('active');
+
+    positionFilterMenu(button, menu);
+
+    activeFilterMenu = menu;
+    activeFilterButton = button;
+}
+
+document.querySelectorAll('.filter-btn').forEach(function(button) {
+    button.addEventListener('click', function(e) {
+        e.stopPropagation();
+        openFilterMenu(this);
+    });
+});
+
+window.addEventListener('resize', function() {
+    if (activeFilterMenu && activeFilterButton) {
+        positionFilterMenu(activeFilterButton, activeFilterMenu);
+    }
+});
+
+document.querySelector('.table-wrap')?.addEventListener('scroll', function() {
+    if (activeFilterMenu && activeFilterButton) {
+        positionFilterMenu(activeFilterButton, activeFilterMenu);
+    }
+});
+
+window.addEventListener('scroll', function() {
+    if (activeFilterMenu && activeFilterButton) {
+        positionFilterMenu(activeFilterButton, activeFilterMenu);
+    }
+}, true);
+
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.filter-menu') && !e.target.closest('.filter-btn')) {
+        closeAllFilterMenus();
+    }
+});
 
 function showInlineToast(message, isError = false) {
     const toast = document.getElementById('inlineToast');
@@ -1257,7 +1629,7 @@ function renderExistingAttachments() {
 
     existingUpdateFiles.forEach(function(file, index){
         const card = document.createElement('div');
-        card.className = 'attachment-card existing-file-badge';
+        card.className = 'attachment-card';
 
         const removeBtn = document.createElement('button');
         removeBtn.type = 'button';
@@ -1315,6 +1687,7 @@ function openEditById(ticketId){
     document.getElementById('update_description').value = ticket.description || '';
     document.getElementById('update_status').value = ticket.status || 'Open';
     document.getElementById('update_assign_to').value = ticket.assign_to || '';
+    document.getElementById('update_qa_by').value = ticket.qa_by || '';
     document.getElementById('update_priority').value = ticket.priority || 'Low';
     document.getElementById('update_classification').value = ticket.classification || 'Issue';
 
@@ -1324,9 +1697,7 @@ function openEditById(ticketId){
             const year = d.getFullYear();
             const month = String(d.getMonth() + 1).padStart(2, '0');
             const day = String(d.getDate()).padStart(2, '0');
-            const hour = String(d.getHours()).padStart(2, '0');
-            const minute = String(d.getMinutes()).padStart(2, '0');
-            document.getElementById('update_timeline').value = year + '-' + month + '-' + day + 'T' + hour + ':' + minute;
+            document.getElementById('update_timeline').value = year + '-' + month + '-' + day;
         } else {
             document.getElementById('update_timeline').value = '';
         }

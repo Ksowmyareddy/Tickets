@@ -293,6 +293,11 @@
                     <label>Assign To <span>*</span></label>
                     <input type="text" name="assign_to" required>
                 </div>
+
+                 <div class="form-group">
+                    <label>QA by<span>*</span></label>
+                    <input type="text" name="QA by" required>
+                </div>
             </div>
         </div>
 

@@ -31,11 +31,48 @@ class Tickets extends CI_Controller {
 
     public function index()
     {
-        $search = trim($this->input->get('search', TRUE));
+        $search         = trim($this->input->get('search', TRUE));
+        $status_filter  = trim($this->input->get('status_filter', TRUE));
+        $priority_filter = trim($this->input->get('priority_filter', TRUE));
+        $classification_filter = trim($this->input->get('classification_filter', TRUE));
+        $page           = (int) $this->input->get('page');
+
+        if ($page < 1) {
+            $page = 1;
+        }
+
+        $per_page = 10;
+        $offset   = ($page - 1) * $per_page;
+
+        $filters = array(
+            'search'                => $search,
+            'status_filter'         => $status_filter,
+            'priority_filter'       => $priority_filter,
+            'classification_filter' => $classification_filter
+        );
+
+        $ticket_count = $this->Ticket_model->get_ticket_count($filters);
+
+        if ($ticket_count <= 10) {
+            $page = 1;
+            $offset = 0;
+        }
+
+        $tickets = $this->Ticket_model->get_all_tickets($filters, $per_page, $offset);
 
         $data['search'] = $search;
-        $data['tickets'] = $this->Ticket_model->get_all_tickets($search);
-        $data['ticket_count'] = $this->Ticket_model->get_ticket_count($search);
+        $data['status_filter'] = $status_filter;
+        $data['priority_filter'] = $priority_filter;
+        $data['classification_filter'] = $classification_filter;
+
+        $data['tickets'] = $tickets;
+        $data['ticket_count'] = $ticket_count;
+
+        $data['current_page'] = $page;
+        $data['per_page'] = $per_page;
+        $data['show_pagination'] = ($ticket_count > 10);
+        $data['has_previous'] = ($page > 1);
+        $data['has_next'] = (($offset + $per_page) < $ticket_count);
 
         $this->load->view('tickets_list', $data);
     }
@@ -140,26 +177,6 @@ class Tickets extends CI_Controller {
         );
     }
 
-    private function merge_attachment_names($old_attachments = '', $new_attachments = array())
-    {
-        $old_files = array();
-
-        if (!empty($old_attachments)) {
-            $decoded = json_decode($old_attachments, true);
-
-            if (is_array($decoded)) {
-                $old_files = $decoded;
-            } else {
-                $old_files = array_filter(array_map('trim', explode(',', $old_attachments)));
-            }
-        }
-
-        $merged = array_merge($old_files, $new_attachments);
-        $merged = array_values(array_unique(array_filter($merged)));
-
-        return json_encode($merged);
-    }
-
     private function get_attachment_array($attachment_value = '')
     {
         if (empty($attachment_value)) {
@@ -191,6 +208,7 @@ class Tickets extends CI_Controller {
             'description'    => trim($this->input->post('description')),
             'status'         => trim($this->input->post('status', TRUE)),
             'assign_to'      => trim($this->input->post('assign_to', TRUE)),
+            'qa_by'          => trim($this->input->post('qa_by', TRUE)),
             'timeline'       => $this->input->post('timeline', TRUE) ? $this->input->post('timeline', TRUE) : NULL,
             'priority'       => trim($this->input->post('priority', TRUE)),
             'classification' => trim($this->input->post('classification', TRUE)),
@@ -268,6 +286,7 @@ class Tickets extends CI_Controller {
             'description'    => trim($this->input->post('description')),
             'status'         => trim($this->input->post('status', TRUE)),
             'assign_to'      => trim($this->input->post('assign_to', TRUE)),
+            'qa_by'          => trim($this->input->post('qa_by', TRUE)),
             'timeline'       => $this->input->post('timeline', TRUE) ? $this->input->post('timeline', TRUE) : NULL,
             'priority'       => trim($this->input->post('priority', TRUE)),
             'classification' => trim($this->input->post('classification', TRUE)),
@@ -342,20 +361,26 @@ class Tickets extends CI_Controller {
 
     public function export()
     {
-        $search = trim($this->input->get('search', TRUE));
-        $tickets = $this->Ticket_model->get_all_tickets($search);
+        $filters = array(
+            'search'                => trim($this->input->get('search', TRUE)),
+            'status_filter'         => trim($this->input->get('status_filter', TRUE)),
+            'priority_filter'       => trim($this->input->get('priority_filter', TRUE)),
+            'classification_filter' => trim($this->input->get('classification_filter', TRUE))
+        );
+
+        $tickets = $this->Ticket_model->get_all_tickets($filters);
 
         header("Content-Type: application/vnd.ms-excel");
         header("Content-Disposition: attachment; filename=tickets.xls");
         header("Pragma: no-cache");
         header("Expires: 0");
 
-        echo "Ticket ID\tContact Name\tAccount Name\tDescription\tStatus\tTimeline\tPriority\tClassification\tAssign To\tAttachments\tCreated At\n";
+        echo "Ticket ID\tContact Name\tAccount Name\tDescription\tStatus\tTimeline\tPriority\tClassification\tAssign To\tQA By\tAttachments\tCreated At\n";
 
         foreach ($tickets as $ticket) {
             $timeline = '-';
             if (!empty($ticket->timeline) && $ticket->timeline != '0000-00-00 00:00:00') {
-                $timeline = date('d-M-Y h:i A', strtotime($ticket->timeline));
+               $timeline = date('d-M-Y', strtotime($ticket->timeline));
             }
 
             $created_at = '-';
@@ -378,6 +403,7 @@ class Tickets extends CI_Controller {
                  $ticket->priority . "\t" .
                  $ticket->classification . "\t" .
                  $ticket->assign_to . "\t" .
+                 $ticket->qa_by . "\t" .
                  $attachment_text . "\t" .
                  $created_at . "\n";
         }
@@ -405,7 +431,11 @@ class Tickets extends CI_Controller {
             return;
         }
 
-        $prompt = 'Convert this into one short professional IT support ticket sentence in clear English. Fix spelling and grammar. If Telugu is typed in English letters, convert it to proper English. Keep only the main issue. Return only the final sentence: ' . $text;
+        $prompt = 'Convert this into one short professional IT support ticket sentence in clear English. 
+        Fix spelling and grammar. 
+        If Telugu is typed in English letters, convert it to proper English. 
+        Keep only the main issue. 
+        Return only the final sentence: ' . $text;
 
         $payload = array(
             "contents" => array(
